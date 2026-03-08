@@ -1,0 +1,55 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="text-center">
+    <h1>MN Movie Recommendation App</h1>
+    
+    <!-- How to Use Section -->
+    <div class="card mb-4 mt-3">
+        <div class="card-body">
+            <h3 class="card-title">📖 How to Use This App</h3>
+            <div class="row text-left mt-3">
+                <div class="col-md-6 mb-3">
+                    <h5>🎬 Step 1: Search for a Movie</h5>
+                    <ul>
+                        <li>Enter a movie title in the search box above</li>
+                        <li>Click "Search Movies" button</li>
+                        <li>Browse through matching movies</li>
+                    </ul>
+                </div>
+                <div class="col-md-6 mb-3">
+                    <h5>💡 Step 2: Get Recommendations</h5>
+                    <ul>
+                        <li>Click "Get Recommendations" on any movie</li>
+                        <li>View similar movie suggestions</li>
+                        <li>Read movie overviews and descriptions</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="alert alert-info mt-2">
+                <strong>Quick Tips:</strong> Be specific with movie titles • Try different searches • Explore recommendations to discover new movies!
+            </div>
+        </div>
+    </div>
+    
+    <form method="POST" class="mb-4">
+        <input type="text" name="movie_title" class="form-control" placeholder="Enter a movie title">
+        <button type="submit" class="btn btn-primary mt-2">Search Movies</button>
+    </form>
+
+    {% if movies %}
+    <div class="row">
+        {% for movie in movies %}
+        <div class="col-md-4 mb-3">
+            <div class="card">
+                <img src="https://image.tmdb.org/t/p/w500{{ movie.poster_path }}" class="card-img-top" alt="{{ movie.title }}">
+                <div class="card-body">
+                    <h5 class="card-title">{{ movie.title }}</h5>
+                    <a href="{{ url_for('main.recommendations', movie_id=movie.id) }}" class="btn btn-info">Get Recommendations</a>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+    {% endif %}
+</div>
+{% endblock %}
